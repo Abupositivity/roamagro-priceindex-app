@@ -3,7 +3,8 @@ RoamAgro
 A web application that displays weekly local market prices of major agro produce within  a geographic area.
 
 TEAM
-This project is done by Mukhtar Salihu; an aspiring full stack web developer with foundations in python and javascript. With the support of mentors and peers, he is focused on building both the backend and frontend of the project.
+
+This project is executed by Mukhtar Salihu; an aspiring full stack web developer with foundations in python and javascript. With the support of mentors and peers, he is focused on building both the backend and frontend of the project.
 
 TECHNOLOGIES
 
