@@ -47,6 +47,7 @@ WHO ROAMAGRO IS HELPING: Agro produce consumers and traders that rely on these l
 ROAMAGRO USERS
 
 Agro produce consumers
+
 Commodity traders
 
 ROAMAGRO DEPENDENCE ON SPECIFIC LOCALE: This portfolio project depends on the selected geographic area as the prices of these commodities vary with changing geographic location.
