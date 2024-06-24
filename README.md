@@ -7,29 +7,44 @@ This project is done by Mukhtar Salihu; an aspiring full stack web developer wit
 
 TECHNOLOGIES
 
-FRONTEND 
+FRONTEND
+
 React: To create dynamic and responsive user interfaces.
+
 Material-UI: For a consistent and modern design.
+
 Alternative: Vue.js
+
 Trade-off: React is highly flexible and can be used in various contexts, including web, mobile (React Native), and even VR (React VR) compared to Vue.js
 
 BACKEND
+
 Python with Django: Python is known for its simplicity and readability. Django A high-level Python web framework that encourages rapid development and clean, pragmatic design; making it a  great choice for backend development.
+
 Alternative: Python with flask
+
 Adaptation: Using Python/Flask as an alternative provided a pragmatic balance of simplicity and capability to meet the project's goals effectively.
+
 Trade-off: Django includes an ORM and is more feature-complete compared to Flask.
 
 DATABASE
+
 PostgreSQL: For storing the price data.
+
 Alternative: MySQL
+
 Trade-off: PostgreSQL provides better performance and features than MySQL
 
 CHALLENGE
+
 PROBLEM: The lack of a platform that provides current local market prices of major agro produce makes it difficult for most consumers and traders to make price comparisons while transacting. RoamAgro is a web application that displays weekly local market prices of major agro produce within  a geographic area that makes price comparison easy. 
+
 PROBLEM IT’S NOT SOLVING: RoamAgro does not provide daily market prices of agro produce which will be more accurate for price comparison.
+
 WHO ROAMAGRO IS HELPING: Agro produce consumers and traders that rely on these local market prices to make price comparisons and get the best rates for transacting within their own communities.
 
 ROAMAGRO USERS
+
 Agro produce consumers
 Commodity traders
 
