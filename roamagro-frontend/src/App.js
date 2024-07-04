@@ -1,18 +1,19 @@
 // src/App.js
 
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Container, Button, Grid, TextField, Box, MenuItem, Menu, IconButton, Snackbar } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Container, Grid, Box, MenuItem, Menu, IconButton, Snackbar } from '@mui/material';
 import Prices from './components/Prices';
 import HistoricalPrices from './components/HistoricalPrices';
 import AddPrice from './components/AddPrice';
 import UpdatePrice from './components/UpdatePrice';
 import Login from './components/Login';
 import Logo from './logo.png';
+import { useAuth } from './context/AuthContext';
 
 function App() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
   const [message, setMessage] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -25,8 +26,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    setIsAuthenticated(false);
+    logout();
     setMessage('Logged out successfully');
     setOpen(true);
   };
@@ -72,7 +72,7 @@ function App() {
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </>
             ) : (
-              <MenuItem component={Link} to="/login">Login</MenuItem>
+              <MenuItem component={Link} to="/login">Admin Login</MenuItem>
             )}
           </Menu>
         </Toolbar>
@@ -81,29 +81,18 @@ function App() {
         <Grid container spacing={2} justifyContent="center" style={{ marginTop: 20 }}>
           <Grid item xs={12}>
             <Typography variant="h5" align="center" gutterBottom>
-              Get current prices of major agro produce in Northern Nigeria.
+              Local Market Prices of major agro produce in Northern Nigeria.
             </Typography>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box display="flex" alignItems="center" justifyContent="center">
-              <TextField
-                variant="outlined"
-                label="Local Market"
-                fullWidth
-                InputProps={{ style: { paddingRight: 0 } }}
-              />
-              <Button variant="contained" color="primary" style={{ marginLeft: 10 }}>
-                Search
-              </Button>
-            </Box>
           </Grid>
         </Grid>
         <Routes>
           <Route path="/" element={<Prices />} />
           <Route path="/historical" element={<HistoricalPrices />} />
-          <Route path="/add" element={isAuthenticated ? <AddPrice /> : <Login setIsAuthenticated={setIsAuthenticated} setMessage={setMessage} setOpen={setOpen} />} />
-          <Route path="/update" element={isAuthenticated ? <UpdatePrice /> : <Login setIsAuthenticated={setIsAuthenticated} setMessage={setMessage} setOpen={setOpen} />} />
-          <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setMessage={setMessage} setOpen={setOpen} />} />
+          <Route path="/add" element={isAuthenticated ? <AddPrice /> : <Login />} />
+          <Route path="/update" element={isAuthenticated ? <UpdatePrice /> : <Login />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Snackbar
           open={open}
