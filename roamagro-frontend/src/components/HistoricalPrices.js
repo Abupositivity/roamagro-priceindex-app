@@ -41,7 +41,7 @@ function HistoricalPrices() {
   return (
     <div>
       <TextField
-        label="Product Name"
+        label="Agro Produce Name"
         value={productName}
         onChange={(e) => setProductName(e.target.value)}
         error={!!errors.productName}
@@ -73,7 +73,7 @@ function HistoricalPrices() {
           <Table>
             <TableHead style={{ backgroundColor: '#388e3c' }}>
               <TableRow>
-                <TableCell style={{ color: 'white' }}>Product</TableCell>
+                <TableCell style={{ color: 'white' }}>Agro produce</TableCell>
                 <TableCell align="right" style={{ color: 'white' }}>Price</TableCell>
                 <TableCell align="right" style={{ color: 'white' }}>Date</TableCell>
               </TableRow>
