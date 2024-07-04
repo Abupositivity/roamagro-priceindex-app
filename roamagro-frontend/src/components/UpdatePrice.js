@@ -1,7 +1,7 @@
 // src/components/UpdatePrice.js
 import React, { useState } from 'react';
 import { TextField, Button, Snackbar } from '@mui/material';
-import axios from 'axios';
+import { updatePrice } from '../services/api';
 
 function UpdatePrice() {
   const [id, setId] = useState('');
@@ -11,7 +11,7 @@ function UpdatePrice() {
   const [open, setOpen] = useState(false);
   
   const handleSubmit = () => {
-    axios.put(`/api/prices/${id}`, {
+    updatePrice(id, {
       product_id: productId,
       price: price,
       date: date,

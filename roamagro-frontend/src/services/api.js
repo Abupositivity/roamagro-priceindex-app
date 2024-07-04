@@ -7,9 +7,9 @@ export const getCurrentPrices = async () => {
     return response.data;
 };
 
-export const getHistoricalPrices = async (productId, startDate, endDate) => {
+export const getHistoricalPrices = async (productName, startDate, endDate) => {
     const response = await axios.get(`${API_URL}/prices/historical`, {
-        params: { product_id: productId, start_date: startDate, end_date: endDate }
+        params: { product_name: productName, start_date: startDate, end_date: endDate }
     });
     return response.data;
 };
@@ -19,7 +19,7 @@ export const addPrice = async (priceData) => {
     return response.data;
 };
 
-export const updatePrice = async (id, priceData) => {
-    const response = await axios.put(`${API_URL}/prices/${id}`, priceData);
+export const updatePrice = async (productName, priceData) => {
+    const response = await axios.put(`${API_URL}/prices/${productName}`, priceData);
     return response.data;
 };

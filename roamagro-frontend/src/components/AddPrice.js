@@ -1,7 +1,7 @@
 // src/components/AddPrice.js
 import React, { useState } from 'react';
 import { TextField, Button, Snackbar } from '@mui/material';
-import axios from 'axios';
+import { addPrice } from '../services/api';
 
 function AddPrice() {
   const [productId, setProductId] = useState('');
@@ -10,7 +10,7 @@ function AddPrice() {
   const [open, setOpen] = useState(false);
 
   const handleSubmit = () => {
-    axios.post('/api/prices', {
+    addPrice({
       product_id: productId,
       price: price,
       date: date,

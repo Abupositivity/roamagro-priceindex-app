@@ -1,16 +1,16 @@
 // src/components/Prices.js
 import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import { getCurrentPrices } from '../services/api';
 
 function Prices() {
   const [prices, setPrices] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/prices/current')
+    getCurrentPrices()
       .then(response => {
-        setPrices(response.data);
+        setPrices(response);
         setLoading(false);
       })
       .catch(error => {

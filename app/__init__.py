@@ -13,6 +13,8 @@ migrate = Migrate()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://abupositivity:4737@localhost:5432/roamagro_db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config.from_object(config_class)
 
     db.init_app(app)

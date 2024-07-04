@@ -13,12 +13,14 @@ class Price(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     price = db.Column(db.Float, nullable=False)
     date = db.Column(db.Date, nullable=False)
-    product = db.relationship('Product', backref=db.backref('prices', lazy=True))
     
+    # Establish relationship to Product
+    product = db.relationship('Product', backref=db.backref('prices', lazy=True))
+
     def to_dict(self):
         return {
             'id': self.id,
-            'product_id': self.product_id,
+            'product_name': self.product.name,  # Change to product name
             'price': self.price,
             'date': self.date.isoformat()
         }

@@ -1,7 +1,7 @@
 // src/components/HistoricalPrices.js
 import React, { useState } from 'react';
 import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
-import axios from 'axios';
+import { getHistoricalPrices } from '../services/api';
 
 function HistoricalPrices() {
   const [productId, setProductId] = useState('');
@@ -12,15 +12,9 @@ function HistoricalPrices() {
   
   const fetchHistoricalPrices = () => {
     setLoading(true);
-    axios.get('/api/prices/historical', {
-      params: {
-        product_id: productId,
-        start_date: startDate,
-        end_date: endDate,
-      }
-    })
+    getHistoricalPrices(productId, startDate, endDate)
     .then(response => {
-      setPrices(response.data);
+      setPrices(response);
       setLoading(false);
     })
     .catch(error => {
