@@ -4,7 +4,7 @@ import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHe
 import { getHistoricalPrices } from '../services/api';
 
 function HistoricalPrices() {
-  const [productId, setProductId] = useState('');
+  const [productName, setProductName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [prices, setPrices] = useState([]);
@@ -12,7 +12,7 @@ function HistoricalPrices() {
   
   const fetchHistoricalPrices = () => {
     setLoading(true);
-    getHistoricalPrices(productId, startDate, endDate)
+    getHistoricalPrices(productName, startDate, endDate)
     .then(response => {
       setPrices(response);
       setLoading(false);
@@ -26,9 +26,9 @@ function HistoricalPrices() {
   return (
     <div>
       <TextField
-        label="Product ID"
-        value={productId}
-        onChange={(e) => setProductId(e.target.value)}
+        label="Product Name"
+        value={productName}
+        onChange={(e) => setProductName(e.target.value)}
       />
       <TextField
         label="Start Date"
