@@ -74,7 +74,7 @@ function HistoricalPrices() {
             <TableHead style={{ backgroundColor: '#388e3c' }}>
               <TableRow>
                 <TableCell style={{ color: 'white' }}>Agro produce</TableCell>
-                <TableCell align="right" style={{ color: 'white' }}>Price</TableCell>
+                <TableCell align="right" style={{ color: 'white' }}>Price(₦)</TableCell>
                 <TableCell align="right" style={{ color: 'white' }}>Date</TableCell>
               </TableRow>
             </TableHead>
