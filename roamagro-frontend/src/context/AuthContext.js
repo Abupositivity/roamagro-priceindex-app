@@ -1,26 +1,48 @@
 // src/contexts/AuthContext.js
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
 
-  const login = () => {
-    setIsAuthenticated(true);
-  };
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('/api/user');
+                setUser(response.data);
+            } catch (error) {
+                setUser(null);
+            }
+        };
+        fetchUser();
+    }, []);
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('user'); // Optionally remove the user from local storage
-  };
+    const login = async (username, password) => {
+        try {
+            const response = await axios.post('/api/login', { username, password });
+            setUser(response.data);
+        } catch (error) {
+            throw new Error('Login failed');
+        }
+    };
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
+    const logout = async () => {
+        await axios.post('/api/logout');
+        setUser(null);
+    };
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
-export const useAuth = () => useContext(AuthContext);
+const useAuth = () => {
+  return useContext(AuthContext);
+};
+
+export { AuthContext, AuthProvider, useAuth };

@@ -1,11 +1,11 @@
 # routes.py
 
 from flask import Blueprint, jsonify, request
-from app import db, login_manager
+from app import db
 from app.models import Price, Product, User
 from flask_cors import CORS
 from datetime import datetime, timedelta
-from flask_login import login_required
+from flask_login import login_user, logout_user, current_user
 
 bp = Blueprint('main', __name__)
 CORS(bp)
@@ -36,9 +36,28 @@ def get_historical_prices():
     ).all()
     return jsonify([price.to_dict() for price in prices])
 
+@bp.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+
+    user = User.query.filter_by(username=username).first()
+    if not user or not user.check_password(password):
+        return jsonify({'error': 'Invalid username or password'}), 401
+
+    login_user(user)
+    return jsonify({'message': 'Login successful', 'user': user.to_dict()}), 200
+
+@bp.route('/api/logout', methods=['POST'])
+def logout():
+    logout_user()
+    return jsonify({'message': 'Logout successful'}), 200
+
 @bp.route('/api/prices', methods=['POST'])
-@login_required
 def add_price():
+    if not current_user.is_authenticated or not current_user.is_admin:
+        return jsonify({'error': 'Unauthorized'}), 403
     data = request.get_json()
     product = Product.query.filter_by(name=data['product_name']).first_or_404()
     new_price = Price(
@@ -51,11 +70,12 @@ def add_price():
     return jsonify(new_price.to_dict()), 201
 
 @bp.route('/api/prices/<string:product_name>', methods=['PUT', 'PATCH'])
-@login_required
 def update_price(product_name):
+    if not current_user.is_authenticated or not current_user.is_admin:
+        return jsonify({'error': 'Unauthorized'}), 403
     data = request.get_json()
     product = Product.query.filter_by(name=product_name).first_or_404()
     price = Price.query.filter_by(product_id=product.id, date=datetime.strptime(data['date'], '%Y-%m-%d').date()).first_or_404()
     price.price = data.get('price', price.price)
     db.session.commit()
-    return jsonify(price.to_dict())
+    return jsonify(price.to_dict()), 201

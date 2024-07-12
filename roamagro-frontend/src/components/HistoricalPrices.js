@@ -32,7 +32,7 @@ function HistoricalPrices() {
       })
       .catch(error => {
         console.error('There was an error fetching the historical prices!', error);
-        setMessage('Failed to fetch historical prices. Product Name incorrect/ unavailable.');
+        setMessage('Failed to fetch historical prices. Product Name/Date incorrect/invalid.');
         setOpen(true);
         setLoading(false);
       });
