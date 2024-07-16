@@ -37,7 +37,7 @@ class Price(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'product_name': self.product.name,  # Change to product name
+            'product_name': self.product.name,
             'price': self.price,
             'date': self.date.isoformat()
         }

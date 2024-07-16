@@ -9,14 +9,14 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        email = request.form['email']
+        username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
         if user is None or not user.check_password(password):
-            flash('Invalid email or password')
+            flash('Invalid username or password')
             return redirect(url_for('auth.login'))
         login_user(user)
-        return redirect(url_for('main.index'))  # Adjust this to the correct route
+        return redirect(url_for('/api/prices'))
 
     return render_template('auth/login.html')
 
@@ -24,15 +24,14 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.index'))  # Adjust this to the correct route
+    return redirect(url_for('/api/login'))
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        email = request.form['email']
         password = request.form['password']
-        user = User(username=username, email=email)
+        user = User(username=username)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
